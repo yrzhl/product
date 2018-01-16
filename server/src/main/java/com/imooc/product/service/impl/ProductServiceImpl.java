@@ -1,8 +1,8 @@
 package com.imooc.product.service.impl;
 
+import com.imooc.product.common.DecreaseStockInput;
+import com.imooc.product.common.ProductInfoOutput;
 import com.imooc.product.dataobject.ProductInfo;
-import com.imooc.product.dto.CartDTO;
-import com.imooc.product.dto.ProductInfoOutput;
 import com.imooc.product.enums.ProductStatusEnum;
 import com.imooc.product.enums.ResultEnum;
 import com.imooc.product.exception.ProductException;
@@ -45,9 +45,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public void decreaseStock(List<CartDTO> cartDTOList) {
-        for (CartDTO cartDTO: cartDTOList) {
-            Optional<ProductInfo> productInfoOptional = productInfoRepository.findById(cartDTO.getProductId());
+    public void decreaseStock(List<DecreaseStockInput> decreaseStockInputList) {
+        for (DecreaseStockInput decreaseStockInput: decreaseStockInputList) {
+            Optional<ProductInfo> productInfoOptional = productInfoRepository.findById(decreaseStockInput.getProductId());
             //判断商品是否存在
             if (!productInfoOptional.isPresent()){
                 throw new ProductException(ResultEnum.PRODUCT_NOT_EXIST);
@@ -55,7 +55,7 @@ public class ProductServiceImpl implements ProductService {
 
             ProductInfo productInfo = productInfoOptional.get();
             //库存是否足够
-            Integer result = productInfo.getProductStock() - cartDTO.getProductQuantity();
+            Integer result = productInfo.getProductStock() - decreaseStockInput.getProductQuantity();
             if (result < 0) {
                 throw new ProductException(ResultEnum.PRODUCT_STOCK_ERROR);
             }

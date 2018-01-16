@@ -1,8 +1,8 @@
 package com.imooc.product.service;
 
+import com.imooc.product.common.DecreaseStockInput;
+import com.imooc.product.common.ProductInfoOutput;
 import com.imooc.product.dataobject.ProductInfo;
-import com.imooc.product.dto.CartDTO;
-import com.imooc.product.dto.ProductInfoOutput;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public interface ProductService {
 
     /**
      * 扣库存
-     * @param cartDTOList
+     * @param decreaseStockInputList
      */
-    void decreaseStock(List<CartDTO> cartDTOList);
+    void decreaseStock(List<DecreaseStockInput> decreaseStockInputList);
 }
