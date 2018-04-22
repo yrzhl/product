@@ -32,6 +32,7 @@ public interface ProductClient {
 
         @Override
         public void decreaseStock(List<DecreaseStockInput> decreaseStockInputList) {
+            System.out.println();
 
         }
     }
